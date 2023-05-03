@@ -6,6 +6,8 @@ import androidx.core.content.res.ResourcesCompat;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
@@ -62,6 +64,40 @@ public class MainActivity extends AppCompatActivity {
             imageView.setImageBitmap(bitmap);
             canvas = new Canvas(bitmap);
             canvas.drawColor(colorBackground);
+            canvas.drawText(getString(R.string.keep_tapping), 100, 100, paintText);
+            offset+= OFFSET;
         }
+        else{
+            if (offset < halfWidth && offset < halfHeight){
+                paint.setColor(colorReactangle - MULTIPLIER*offset);
+                rect.set(offset, offset, width-offset, height-offset);
+                canvas.drawRect(rect,paint);
+                offset+= OFFSET;
+            }
+            else {
+            paint.setColor(colorCircle - MULTIPLIER * offset);
+            canvas.drawCircle(halfWidth, halfHeight, halfHeight/4, paint);
+            String text = getString(R.string.done);
+            paintText.getTextBounds(text, 0, text.length(), bounds);
+            int x = halfWidth - bounds.centerX();
+            int y = halfHeight - bounds.centerY();
+            canvas.drawText(text, x, y, paintText);
+            offset += OFFSET;
+            paint.setColor(colorBackground- MULTIPLIER*offset);
+            Point a = new Point(halfWidth-50, halfHeight-50);
+            Point b = new Point(halfWidth+50, halfHeight-50);
+            Point c = new Point(halfWidth, halfHeight+250);
+
+            Path path = new Path();
+            path.setFillType(Path.FillType.EVEN_ODD);
+            path.lineTo(a.x, a.y);
+            path.lineTo(b.x, b.y);
+            path.lineTo(c.x, c.y);
+            path.lineTo(a.x, a.y);
+            path.close();
+            canvas.drawPath(path, paint);
+            offset += OFFSET;
+        }}
+        view.invalidate();
     }
 }
