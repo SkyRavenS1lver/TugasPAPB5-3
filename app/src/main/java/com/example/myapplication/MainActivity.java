@@ -5,6 +5,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
@@ -28,6 +29,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     private Canvas canvas;
     private Paint paint = new Paint();
+    private Paint paint2 = new Paint();
     private Paint paintText = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Bitmap bitmap;
     private ImageView imageView;
@@ -51,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     private String hint = "";
     private char[] tempSoal;
     private char[] tempJawaban;
-    private String keyboard = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         color = ResourcesCompat.getColor(getResources(), R.color.black, null);
         paint.setColor(color);
+        paint2.setColor(Color.WHITE);
         paintText.setColor(color);
         paintText.setTextSize(70);
         imageView =findViewById(R.id.hangman);
@@ -143,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
         });
         textView2.setPaintFlags(textView2.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
         start();
-
     }
 
     public void draw(View view) {
@@ -173,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
             canvas.drawRect(rect, paint);
             rect.set(SIZE + SIZE / 2, SIZE + SIZE, width-(SIZE + SIZE/2),SIZE + SIZE+ SIZE / 2);
             canvas.drawRect(rect, paint);
-            current = SIZE + SIZE+ SIZE / 2;
+            current = SIZE + SIZE + SIZE / 2;
         } else if (COUNTER ==1) {
             rect.set(left, current, right,current+Appended);
             current+=Appended;
@@ -187,81 +188,78 @@ public class MainActivity extends AppCompatActivity {
             rect.set(left, current, right, current + Appended);
             current += Appended;
             canvas.drawRect(rect, paint);
-//        } else if (COUNTER == 4) {
-//            Path path = new Path();
-//            path.addRect(SIZE+30, SIZE+550, SIZE+50, SIZE+650, Path.Direction.CW);
-//            canvas.save(); // first save the state of the canvas
-//            canvas.rotate(-45); // rotate it
-//            canvas.drawPath(path, paint); // draw on it
-//            canvas.restore(); // restore previous state (rotate it back)
-//        } else if (COUNTER == 5) {
-//            Path path = new Path();
-//            path.addRect(660, -160, 680, -60, Path.Direction.CW);
-//            canvas.save(); // first save the state of the canvas
-//            canvas.rotate(45); // rotate it
-//            canvas.drawPath(path, paint); // draw on it
-//            canvas.restore(); // restore previous state (rotate it back)
-//
-//        } else if (COUNTER == 6) {
-//            Path path = new Path();
-//            path.addRect(70, 720, 90, 790, Path.Direction.CW);
-//            canvas.save(); // first save the state of the canvas
-//            canvas.rotate(-45); // rotate it
-//            canvas.drawPath(path, paint); // draw on it
-//            canvas.restore(); // restore previous state (rotate it back)
-//        }
-//        else if (COUNTER == 7) {
-//            Path path = new Path();
-//            path.addRect(720, -80, 740, -20, Path.Direction.CW);
-//            canvas.save(); // first save the state of the canvas
-//            canvas.rotate(45); // rotate it
-//            canvas.drawPath(path, paint); // draw on it
-//            canvas.restore(); // restore previous state (rotate it back)
-//            String over ="Game Over";
-//            paintText.getTextBounds(over, 0, over.length(), bounds);
-////            int x = halfWidth - bounds.centerX();
-//            int x = SIZE + SIZE+SIZE/2;
-//
-//            canvas.drawText(over, x, height-(SIZE+SIZE/2), paintText);
-//            textView3.setText("Tap Here To Restart!");
-//        }
-        }else if (COUNTER == 4) {
-            float x = right;
-            float y = current-Appended/2;
-            canvas.drawCircle(x,y, Appended/3, paint);
-            } else if (COUNTER == 5) {
-            float x = left;
-            float y = current-Appended/2;
-            canvas.drawCircle(x,y, Appended/3, paint);
-            } else if (COUNTER == 6) {
-            float x = right;
-            float y = current;
-            canvas.drawCircle(x,y, Appended/3, paint);
-            }
-            else if (COUNTER == 7) {
-            float x = left;
-            float y = current;
-            canvas.drawCircle(x,y, Appended/3, paint);
-                String over ="Game Over";
-                paintText.getTextBounds(over, 0, over.length(), bounds);
-//            int x = halfWidth - bounds.centerX();
-                int x2 = SIZE + SIZE+SIZE/2;
+        } else if (COUNTER == 4) {
+            Path path = new Path();
+            path.addRect(SIZE+30, SIZE+550, SIZE+50, SIZE+650, Path.Direction.CW);
+            canvas.save(); // first save the state of the canvas
+            canvas.rotate(-45); // rotate it
+            canvas.drawPath(path, paint); // draw on it
+            canvas.restore(); // restore previous state (rotate it back)
+        } else if (COUNTER == 5) {
+            Path path = new Path();
+            path.addRect(660, -160, 680, -60, Path.Direction.CW);
+            canvas.save(); // first save the state of the canvas
+            canvas.rotate(45); // rotate it
+            canvas.drawPath(path, paint); // draw on it
+            canvas.restore(); // restore previous state (rotate it back)
 
-                canvas.drawText(over, x2, height-(SIZE+SIZE/2), paintText);
-                textView3.setText("Tap Here To Restart!");
+        } else if (COUNTER == 6) {
+            Path path = new Path();
+            path.addRect(70, 720, 90, 790, Path.Direction.CW);
+            canvas.save(); // first save the state of the canvas
+            canvas.rotate(-45); // rotate it
+            canvas.drawPath(path, paint); // draw on it
+            canvas.restore(); // restore previous state (rotate it back)
+        }
+        else if (COUNTER == 7) {
+            Path path = new Path();
+            path.addRect(720, -80, 740, -20, Path.Direction.CW);
+            canvas.save(); // first save the state of the canvas
+            canvas.rotate(45); // rotate it
+            canvas.drawPath(path, paint); // draw on it
+            canvas.restore(); // restore previous state (rotate it back)
+            String over ="Game Over";
+            paintText.getTextBounds(over, 0, over.length(), bounds);
+//            int x = halfWidth - bounds.centerX();
+            int x2 = SIZE + SIZE+SIZE/2;
+            canvas.drawText(over, x2, height-(SIZE+SIZE/2), paintText);
+            textView3.setText("Tap Here To Restart!");
             confirmButton.setClickable(false);
             confirmButton.setFocusable(false);
-            editText.setClickable(false);
-            editText.setFocusable(false);
-            }
+        }
+//        }else if (COUNTER == 4) {
+//            float x = right;
+//            float y = current-Appended/2;
+//            canvas.drawCircle(x,y, Appended/3, paint);
+//            } else if (COUNTER == 5) {
+//            float x = left;
+//            float y = current-Appended/2;
+//            canvas.drawCircle(x,y, Appended/3, paint);
+//            } else if (COUNTER == 6) {
+//            float x = right;
+//            float y = current;
+//            canvas.drawCircle(x,y, Appended/3, paint);
+//            }
+//            else if (COUNTER == 7) {
+//            float x = left;
+//            float y = current;
+//            canvas.drawCircle(x,y, Appended/3, paint);
+//                String over ="Game Over";
+//                paintText.getTextBounds(over, 0, over.length(), bounds);
+////            int x = halfWidth - bounds.centerX();
+//                int x2 = SIZE + SIZE+SIZE/2;
+//
+//                canvas.drawText(over, x2, height-(SIZE+SIZE/2), paintText);
+//                textView3.setText("Tap Here To Restart!");
+//            confirmButton.setClickable(false);
+//            confirmButton.setFocusable(false);
+//            }
         COUNTER++;
         view.invalidate();
     }
     public void start(){
         confirmButton.setClickable(true);
         confirmButton.setFocusable(true);
-        editText.setClickable(true);
-        editText.setFocusable(true);
         Random random = new Random();
         int randomed = random.nextInt((9) + 1);
         if (!Objects.equals(words[randomed], soal)){
@@ -280,11 +278,9 @@ public class MainActivity extends AppCompatActivity {
     public void reset(){
         COUNTER = 0;
         textView3.setText("");
-        keyboard = "";
+
         confirmButton.setClickable(true);
         confirmButton.setFocusable(true);
-        editText.setClickable(true);
-        editText.setFocusable(true);
         start();
 
     }
@@ -314,12 +310,10 @@ public class MainActivity extends AppCompatActivity {
             if ((new String(tempJawaban)).equals(soal)) {
                 int x2 = SIZE + SIZE + SIZE / 2;
                 String over = "You Win!";
-                canvas.drawText(over, x2, 750, paintText);
+                canvas.drawText(over, x2, 600, paintText);
                 textView3.setText("Tap Here To Restart!");
                 confirmButton.setClickable(false);
                 confirmButton.setFocusable(false);
-                editText.setClickable(false);
-                editText.setFocusable(false);
             }
         }
         }
