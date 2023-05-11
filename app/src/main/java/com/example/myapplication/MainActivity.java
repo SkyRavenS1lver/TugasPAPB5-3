@@ -224,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
             int x2 = SIZE + SIZE+SIZE/2;
             canvas.drawText(over, x2, height-(SIZE+SIZE/2), paintText);
             textView3.setText("Tap Here To Restart!");
+            textView2.setText(soal);
             confirmButton.setClickable(false);
             confirmButton.setFocusable(false);
         }
